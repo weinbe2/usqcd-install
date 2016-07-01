@@ -13,3 +13,14 @@ The script takes three arguments:
 Three demo source files are included for Fermilab: source_ds.sh, source_bc.sh, and source_pi.sh. 
 
 Contact me at weinbe2@bu.edu with any questions or suggestions!
+
+## Remarks for myself, because I'm forgetful.
+
+To pull this from git and push updates, I need to run:
+
+git clone https://weinbe2@github.com/weinbe2/usqcd-install.git
+cd usqcd-install
+git push --set-upstream origin master
+
+Yes, I know this is trivial, but I'm forgetful.
+
