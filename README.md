@@ -19,7 +19,9 @@ Contact me at weinbe2@bu.edu with any questions or suggestions!
 To pull this from git and push updates, I need to run:
 
 git clone https://weinbe2@github.com/weinbe2/usqcd-install.git
+
 cd usqcd-install
+
 git push --set-upstream origin master
 
 Yes, I know this is trivial, but I'm forgetful.
