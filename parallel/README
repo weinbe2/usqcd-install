@@ -1,0 +1,13 @@
+DS:
+
+./do_all.sh /lqcdproj/LSD/8f/bin/USQCD/ /lqcdproj/LSD/8f/binaries/USQCD/source_ds.sh ds
+
+BC:
+
+./do_all.sh /lqcdproj/LSD/8f/bin/USQCD/ /lqcdproj/LSD/8f/binaries/USQCD/source_bc.sh bc
+
+pi0:
+
+./do_all.sh /lqcdproj/LSD/8f/bin/USQCD/ /lqcdproj/LSD/8f/binaries/USQCD/source_pi0.sh pi0
+
+
