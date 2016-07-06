@@ -32,7 +32,7 @@ then
     mkdir src
     cd src
     
-    git clone https://github.com/usqcd-software/qmp.git.
+    git clone https://github.com/usqcd-software/qmp.git
     git clone https://github.com/usqcd-software/c-lime.git
     git clone https://github.com/usqcd-software/qio.git
     git clone https://github.com/usqcd-software/qla.git
@@ -63,6 +63,10 @@ ln -s ../../c-lime c-lime
 cd ../..
 
 cd qla
+autoreconf
+cd ..
+
+cd qdp
 autoreconf
 cd ..
 
