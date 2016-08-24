@@ -1,0 +1,86 @@
+The latest version of autoconf is in /home/weinbe2/unix_util/autoconf/autoconf-install/bin
+
+export PATH=/home/schaich/lqcd/bin:/usr/local/mvapich2-2.0-mpiexec/bin:$PATH 
+export LD_LIBRARY_PATH=/usr/local/mvapich2-2.0-mpiexec/lib:/usr/local/ofed/lib64:$LD_LIBRARY_PATH
+
+
+QMP:
+
+cd src
+git clone https://github.com/usqcd-software/qmp.git
+cd qmp
+autoreconf
+cd ../../build/qmp
+../../src/qmp/configure --prefix=/home/weinbe2/lqcd/install/qmp --with-qmp-comms-type=MPI CC=mpicc CFLAGS="-Wall -O3 -std=c99"
+make -j8
+make install
+make check
+
+QIO:
+
+cd src
+git clone https://github.com/usqcd-software/c-lime.git
+cd c-lime
+autoreconf
+cd ..
+git clone https://github.com/usqcd-software/qio.git
+cd qio
+autoreconf
+cd other_libs
+rmdir c-lime
+ln -s ../../c-lime c-lime
+cd ../../../build/qio
+../../src/qio/configure --prefix=/home/weinbe2/lqcd/install/qio --with-qmp=/home/weinbe2/lqcd/install/qmp --enable-largefile --enable-dml-output-buffering CFLAGS="-Wall -O3 -std=c99"
+make -j8
+make install
+make check
+
+QLA: Needs gcc for some reason! Builds all nc library
+
+cd src
+git clone https://github.com/usqcd-software/qla.git
+cd qla
+autoreconf
+cd ../../build/qla
+../../src/qla/configure --prefix=/home/weinbe2/lqcd/install/qla --enable-sse2 CC=gcc CFLAGS="-Wall -std=c99 -O3 -march=k8 -msse2 -mfpmath=sse -ffast-math -funroll-loops -fprefetch-loop-arrays -fomit-frame-pointer" TEST_CFLAGS="-Wall -O2 -std=c99"
+make -j16
+make install
+make check
+
+QDP:
+
+cd src
+git clone https://github.com/usqcd-software/qdp.git
+cd qdp
+autoreconf
+cd ../../build/qdp
+../../src/qdp/configure --prefix=/home/weinbe2/lqcd/install/qdp --with-qmp=/home/weinbe2/lqcd/install/qmp --with-qio=/home/weinbe2/lqcd/install/qio --with-qla=/home/weinbe2/lqcd/install/qla CFLAGS="-Wall -O3 -std=c99"
+make -j8
+make install
+make check
+
+QOPQDP:
+
+cd src
+git clone https://github.com/usqcd-software/qopqdp.git
+cd qopqdp
+autoreconf
+cd ../../build/qopqdp
+../../src/qopqdp/configure --prefix=/home/weinbe2/lqcd/install/qopqdp --with-qmp=/home/weinbe2/lqcd/install/qmp --with-qio=/home/weinbe2/lqcd/install/qio --with-qla=/home/weinbe2/lqcd/install/qla --with-qdp=/home/weinbe2/lqcd/install/qdp CFLAGS="-Wall -O3 -std=c99"   # -g -DQDP_PROFILE"
+make -j8
+make install
+make check
+
+QHMC:
+
+cd src
+git clone https://github.com/jcosborn/qhmc.git
+cd qhmc
+autoreconf
+cd ../../build/qhmc
+# Switch to gnu99 standard to handle POSIX stuff
+../../src/qhmc/configure --prefix=/home/weinbe2/lqcd/install/qhmc --enable-nc=all --enable-colors=3 --with-qmp=/home/weinbe2/lqcd/install/qmp --with-qio=/home/weinbe2/lqcd/install/qio --with-qla=/home/weinbe2/lqcd/install/qla --with-qdp=/home/weinbe2/lqcd/install/qdp --with-qopqdp=/home/weinbe2/lqcd/install/qopqdp CFLAGS="-Wall -O3 -std=gnu99"
+make -j8
+make install
+#make check # Bad! Apparently submits to queueing system...
+
